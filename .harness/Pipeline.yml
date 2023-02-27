@@ -1,0 +1,35 @@
+pipeline:
+  name: flutter-coverage
+  identifier: fluttercoverage
+  projectIdentifier: NgLabs
+  orgIdentifier: default
+  tags: {}
+  properties:
+    ci:
+      codebase:
+        connectorRef: account.gitforronak
+        repoName: flutter/flutter
+        build: <+input>
+  stages:
+    - stage:
+        name: coverage
+        identifier: coverage
+        description: ""
+        type: CI
+        spec:
+          cloneCodebase: true
+          platform:
+            os: Linux
+            arch: Amd64
+          runtime:
+            type: Cloud
+            spec: {}
+          execution:
+            steps:
+              - step:
+                  type: Run
+                  name: test coverage
+                  identifier: test_coverage
+                  spec:
+                    shell: Bash
+                    command: pushd packages/flutter;../../bin/flutter test --coverage -j 1;popd
